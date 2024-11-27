@@ -9,11 +9,11 @@ services:
         external_url 'https://dev.verulam.ru/'
     ports:
       - "8080:80"
-      - "1022:22"
+      - "8022:22"
     volumes:
-      - "${GITLAB_HOME:-/tmp/gitlab}/config:/etc/gitlab"
-      - "${GITLAB_HOME:-/tmp/gitlab}/logs:/var/log/gitlab"
-      - "${GITLAB_HOME:-/tmp/gitlab}/data:/var/opt/gitlab"
+      - "${GITLAB_HOME}/config:/etc/gitlab"
+      - "${GITLAB_HOME}/logs:/var/log/gitlab"
+      - "${GITLAB_HOME}/data:/var/opt/gitlab"
     shm_size: "256m"
 
   nginx:
@@ -30,7 +30,6 @@ services:
       - ./certbot/www:/var/www/certbot
     depends_on:
       - certbot
-      - gitlab
 
   certbot:
     image: certbot/certbot
@@ -39,4 +38,4 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-    command: certonly --webroot -w /var/www/certbot --force-renewal -d "dev.verulam.ru" --agree-tos
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email lenyaplay@mail.ru -d "dev.verulam.ru" --agree-tos
