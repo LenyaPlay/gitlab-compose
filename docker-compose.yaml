@@ -6,7 +6,7 @@ services:
     hostname: "gitlab.verulam.dev"
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url 'http://dev.verulam.ru:80/'
+        external_url 'https://dev.verulam.ru/'
     ports:
       - "8080:80"
       - "8022:22"
@@ -15,6 +15,8 @@ services:
       - "${GITLAB_HOME}/logs:/var/log/gitlab"
       - "${GITLAB_HOME}/data:/var/opt/gitlab"
     shm_size: "256m"
+    networks:
+      - gitlab_network
 
   nginx:
     image: nginx:latest
@@ -28,6 +30,8 @@ services:
       - "${NGINX_CONF}:/etc/nginx/nginx.conf"
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
+    networks:
+      - gitlab_network
 
   certbot:
     image: certbot/certbot
@@ -39,3 +43,9 @@ services:
     command: certonly --webroot -w /var/www/certbot --keep-until-expiring --email lenyaplay@mail.ru -d "dev.verulam.ru" --agree-tos
     depends_on:
       - nginx
+    networks:
+      - gitlab_network
+
+networks:
+  gitlab_network:
+    driver: bridge
