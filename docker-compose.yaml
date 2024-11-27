@@ -7,14 +7,13 @@ services:
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://dev.verulam.ru/'
-    -ports:
-      - "1080:80"
-      - "1443:443"
+    ports:
+      - "8080:80"
       - "1022:22"
     volumes:
-      - "$GITLAB_HOME/config:/etc/gitlab"
-      - "$GITLAB_HOME/logs:/var/log/gitlab"
-      - "$GITLAB_HOME/data:/var/opt/gitlab"
+      - "${GITLAB_HOME:-/tmp/gitlab}/config:/etc/gitlab"
+      - "${GITLAB_HOME:-/tmp/gitlab}/logs:/var/log/gitlab"
+      - "${GITLAB_HOME:-/tmp/gitlab}/data:/var/opt/gitlab"
     shm_size: "256m"
 
   nginx:
