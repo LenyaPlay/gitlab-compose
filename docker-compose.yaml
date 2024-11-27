@@ -7,9 +7,6 @@ services:
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://dev.verulam.ru/'
-    ports:
-      - "8080:80"
-      - "8022:22"
     volumes:
       - "${GITLAB_HOME}/config:/etc/gitlab"
       - "${GITLAB_HOME}/logs:/var/log/gitlab"
