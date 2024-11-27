@@ -6,7 +6,7 @@ services:
     hostname: "gitlab.verulam.dev"
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url 'https://dev.verulam.ru/'
+        external_url 'http://dev.verulam.ru:80/'
     ports:
       - "8080:80"
       - "8022:22"
