@@ -37,3 +37,5 @@ services:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
     command: certonly --webroot -w /var/www/certbot --force-renewal --email lenyaplay@mail.ru -d "dev.verulam.ru" --agree-tos
+    depends_on:
+      - nginx
