@@ -1,7 +1,10 @@
-`docker compose --env-file .env.dev up -d`
-
+**Prepare**\
 `sudo mkdir -p /srv/gitlab`
 
-`docker compose --env-file .env.prod up -d`
+**Generate ssl**\
+`docker compose --env-file .env.ssl up -d`\
+`docker compose --env-file .env.ssl down`
 
-`docker compose down`
+**Run**\
+`docker compose --env-file .env.prod up -d`\
+`docker compose --env-file .env.prod down`
